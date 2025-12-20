@@ -15,3 +15,10 @@ def mask_account_card(type_and_number: str) -> str:
     else:
         account_number = get_mask_card_number(int(card_or_account_number))
         return account_number
+
+
+def get_date(raw_date: str) -> str:
+    """Принимает сырую дату и возвращает ДД.ММ.ГГГГ"""
+
+    formatted_date = raw_date[8:10], raw_date[5:7], raw_date[:4]
+    return ".".join(formatted_date)
