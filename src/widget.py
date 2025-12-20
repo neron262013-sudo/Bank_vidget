@@ -1,8 +1,8 @@
-from masks import get_mask_card_number
-from masks import get_mask_account
+from masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(type_and_number: str) -> str:
-    """Принимает тип и номер каты, возвращает замаскированный номер"""
+    """Принимает тип и номер карты, возвращает маску"""
 
     card_or_account_number = ""
     for i in type_and_number:
@@ -18,7 +18,7 @@ def mask_account_card(type_and_number: str) -> str:
 
 
 def get_date(raw_date: str) -> str:
-    """Принимает сырую дату и возвращает ДД.ММ.ГГГГ"""
+    """Принимает сырую дату и возвращает в формате ДД.ММ.ГГГГ"""
 
     formatted_date = raw_date[8:10], raw_date[5:7], raw_date[:4]
     return ".".join(formatted_date)
