@@ -11,6 +11,7 @@ def filter_by_state(list_of_data_dicts: list[dict], state: str = "EXECUTED") -> 
 
     return new_list_of_data_dicts
 
+
 def sort_by_date(list_of_data_dicts: list[dict], sort_order: str = "убывание") -> list[dict]:
     """Сортирует словари в списке по дате. Можно указать порядок сортировки. Убывание по умолчанию"""
 
