@@ -6,9 +6,9 @@ def mask_account_card(type_and_number: str) -> str:
 
     # Удаляет все буквы и оставляет только номер карты или аккаунта
     card_or_account_number = ""
-    for i in type_and_number:
-        if i.isdigit():
-            card_or_account_number += i
+    for simbol in type_and_number:
+        if simbol.isdigit():
+            card_or_account_number += simbol
 
     # Номер карты = 16 символов. Если больше, то это номер аккаунта. Маскируем соответственно из файла masks.
     if len(card_or_account_number) > 16:
