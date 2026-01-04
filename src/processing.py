@@ -5,7 +5,6 @@ def filter_by_state(list_of_data_dicts: list[dict], state: str = "EXECUTED") -> 
     if state not in ("EXECUTED", "CANCELED"):
         raise ValueError("Не верное значение состояния счета")
 
-
     # Проходим по словарям в списке. Проверяем, есть ли ключ "state" через .get.
     # Заносим все словари с указанным "state" в новый словарь и возвращаем.
     new_list_of_data_dicts = []

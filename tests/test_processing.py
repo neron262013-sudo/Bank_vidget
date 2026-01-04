@@ -61,5 +61,6 @@ def test_sort_by_date(list_of_dicts, sorted_list_of_dict_by_decreasing):
 def test_sort_by_date_decreasing(list_of_dicts, sorted_list_of_dict_by_decreasing):
     assert sort_by_date(list_of_dicts, True) == sorted_list_of_dict_by_decreasing
 
+
 def test_sort_by_date_increasing(list_of_dicts, sorted_list_of_dict_by_increasing):
     assert sort_by_date(list_of_dicts, False) == sorted_list_of_dict_by_increasing

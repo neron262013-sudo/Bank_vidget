@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import mask_account_card, get_date
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize("type_and_number, expected",
@@ -20,6 +20,7 @@ def test_mask_account_card(type_and_number, expected):
 def test_mask_account_card_wrong_value_error(type_and_number):
     with pytest.raises(ValueError):
         mask_account_card(type_and_number)
+
 
 @pytest.mark.parametrize("type_and_number",
                          [123124,
@@ -50,6 +51,3 @@ def test_get_date_wrong_date_format(raw_date):
 def test_get_date_wrong_type_format(raw_date):
     with pytest.raises(TypeError):
         get_date(raw_date)
-
-
-
