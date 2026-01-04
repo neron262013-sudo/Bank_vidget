@@ -79,3 +79,16 @@ print(sort_by_date([{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18
                     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
                    ))
 ```
+
+## Тестирование
+
+Тестирование через pytest
+1. Установите pytest и pytest-cov
+```
+poetry add --dev pytest pytest-cov
+```
+2. Запустите pytest и pytest-cov
+```
+pytest
+pytest -cov
+```
