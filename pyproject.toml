@@ -22,6 +22,10 @@ lint = [
     "black (>=25.12.0,<26.0.0)",
     "isort (>=7.0.0,<8.0.0)"
 ]
+dev = [
+    "pytest (>=9.0.2,<10.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)"
+]
 
 [tool.mypy]
 disallow_untyped_defs = true
@@ -41,3 +45,7 @@ exclude = '''
 [tool.isort]
 line_length = 119
 
+[tool.pytest.ini_options]
+addopts = "--maxfail=1 --disable-warnings"
+testpaths = ["tests"]
+pythonpath = ["src"]
