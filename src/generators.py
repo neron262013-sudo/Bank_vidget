@@ -3,8 +3,7 @@ import random
 
 def filter_by_currency(transactions_list: list[dict], currency: str) -> Generator[dict, None, None]:
     """Принимает список транзакций.
-    Возвращает генератор, который выдает транзакции, где валюта операции соответствует заданной.
-    Обрабатываемые валюты: USD, RUB"""
+    Возвращает генератор, который выдает транзакции, где валюта операции соответствует заданной."""
 
     for transaction in transactions_list:
         # Проверка, что в словаре есть нужные ключи и они не пусты.
@@ -24,7 +23,7 @@ def transaction_descriptions(transactions_list: list[dict]) -> Generator[str]:
 
 # Собираем все номера карт во множество, чтобы не повторяться
 set_of_card_numbers = set()
-def card_number_generator(start: int = 1, end: int = 999999999999999) -> str:
+def card_number_generator(start: int = 1, end: int = 9999999999999999) -> str:
     """Генератор номеров карт в формате xxxx xxxx xxxx xxxx"""
 
     while True:
@@ -39,112 +38,3 @@ def card_number_generator(start: int = 1, end: int = 999999999999999) -> str:
             yield formated_card_number
         else:
             yield "Номера в указанном диапазоне закончились"
-
-card_number = card_number_generator(1, 59234234234234234)
-print(next(card_number))
-print(next(card_number))
-print(next(card_number))
-print(next(card_number))
-
-
-
-
-
-
-
-
-transactions =[
-        {
-            "id": 939719570,
-            "state": "EXECUTED",
-            "date": "2018-06-30T02:08:58.425572",
-            "operationAmount": {
-                "amount": "9824.07",
-                "currency": {
-                    "name": "USD",
-                    "code": "USD"
-                }
-            },
-            "description": "Перевод организации",
-            "from": "Счет 75106830613657916952",
-            "to": "Счет 11776614605963066702"
-        },
-        {
-            "id": 142264268,
-            "state": "EXECUTED",
-            "date": "2019-04-04T23:20:05.206878",
-            "operationAmount": {
-                "amount": "79114.93",
-                "currency": {
-                    "name": "USD",
-                    "code": "USD"
-                }
-            },
-            "description": "Перевод со счета на счет",
-            "from": "Счет 19708645243227258542",
-            "to": "Счет 75651667383060284188"
-        },
-        {
-            "id": 873106923,
-            "state": "EXECUTED",
-            "date": "2019-03-23T01:09:46.296404",
-            "operationAmount": {
-                "amount": "43318.34",
-                "currency": {
-                    "name": "руб.",
-                    "code": "RUB"
-                }
-            },
-            "description": "Перевод со счета на счет",
-            "from": "Счет 44812258784861134719",
-            "to": "Счет 74489636417521191160"
-        },
-        {
-            "id": 895315941,
-            "state": "EXECUTED",
-            "date": "2018-08-19T04:27:37.904916",
-            "operationAmount": {
-                "amount": "56883.54",
-                "currency": {
-                    "name": "USD",
-                    "code": "USD"
-                }
-            },
-            "description": "Перевод с карты на карту",
-            "from": "Visa Classic 6831982476737658",
-            "to": "Visa Platinum 8990922113665229"
-        },
-        {
-            "id": 594226727,
-            "state": "CANCELED",
-            "date": "2018-09-12T21:27:25.241689",
-            "operationAmount": {
-                "amount": "67314.70",
-                "currency": {
-                    "name": "руб.",
-                    "code": "RUB"
-                }
-            },
-            "description": "Перевод организации",
-            "from": "Visa Platinum 1246377376343588",
-            "to": "Счет 14211924144426031657"
-        }
-    ]
-
-# filter_by_currency_gen = filter_by_currency(transactions, "USD")
-# try:
-#     while True:
-#         transaction = next(filter_by_currency_gen)
-#         print(transaction)
-# except StopIteration:
-#     print("Все подходящие транзакции обработаны")
-
-# transaction_descriptions_gen = transaction_descriptions(transactions)
-# try:
-#     while True:
-#         description = next(transaction_descriptions_gen)
-#         print(description)
-# except StopIteration:
-#     print("Все подходящие транзакции обработаны")
-
-
