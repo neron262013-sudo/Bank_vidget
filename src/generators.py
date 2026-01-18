@@ -1,14 +1,28 @@
 from typing import Generator
 
 def filter_by_currency(transactions_list: list[dict], currency: str) -> Generator[dict, None, None]:
-    """Принимает список словарей.
-    Возвращает итератор, который выдает транзакции, где валюта операции соответствует заданной.
+    """Принимает список транзакций.
+    Возвращает генератор, который выдает транзакции, где валюта операции соответствует заданной.
     Обрабатываемые валюты: USD, RUB"""
 
     for transaction in transactions_list:
+        # Проверка, что в словаре есть нужные ключи и они не пусты.
         code = transaction.get("operationAmount", {}).get("currency", {}).get("code")
+
+        # Если значение code = указанной валюте, то возвращаем генератор со словарем.
         if code == currency:
             yield transaction
+
+def transaction_descriptions(transactions_list: list[dict]) -> Generator[str]:
+    """Принимает список транзакций. Возвращает генератор с описанием транзакции"""
+
+    for transaction in transactions_list:
+        # Проверяем, что ключ desctiption есть в словаре  возвращаем генератор с описанием транзакции.
+        description = transaction.get("description")
+        yield description
+
+
+
 
 
 
@@ -97,10 +111,18 @@ transactions =[
         }
     ]
 
-filter_by_currency_gen = filter_by_currency(transactions, "USD")
+# filter_by_currency_gen = filter_by_currency(transactions, "USD")
+# try:
+#     while True:
+#         transaction = next(filter_by_currency_gen)
+#         print(transaction)
+# except StopIteration:
+#     print("Все подходящие транзакции обработаны")
+
+transaction_descriptions_gen = transaction_descriptions(transactions)
 try:
     while True:
-        transaction = next(filter_by_currency_gen)
-        print(transaction)
+        description = next(transaction_descriptions_gen)
+        print(description)
 except StopIteration:
     print("Все подходящие транзакции обработаны")
