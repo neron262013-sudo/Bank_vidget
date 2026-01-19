@@ -46,10 +46,3 @@ def card_number_generator(start: int = 1, end: int = 9999999999999999) -> str:
             yield formated_card_number
         else:
             yield "Номера в указанном диапазоне закончились"
-
-
-card_number = card_number_generator()
-print(next(card_number))
-print(next(card_number))
-print(next(card_number))
-print(next(card_number))
