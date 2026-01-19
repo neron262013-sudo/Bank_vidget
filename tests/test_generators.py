@@ -104,6 +104,7 @@ def test_card_number_generator():
     assert next(generator) == "Номера в указанном диапазоне закончились"
     assert next(generator) == "Номера в указанном диапазоне закончились"
 
+
 @pytest.mark.parametrize("start, stop, expected_1, expected_2, expected_3", [
     (1, 1,
      "0000 0000 0000 0001",
