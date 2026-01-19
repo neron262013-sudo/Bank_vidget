@@ -39,15 +39,13 @@ def transaction_descriptions(transactions_list: list[dict]) -> Generator[Any | N
 def card_number_generator(start: int = 1, stop: int = 9999999999999999) -> Generator[str, None, None]:
     """Генератор номеров карт в формате xxxx xxxx xxxx xxxx"""
 
-    # Проверяем, что значения в допустимом диапазоне
-    if 0 < start <= 9999999999999999 and 0 < stop <= 9999999999999999 and start <= stop:
+    set_of_card_numbers = set()  # Собираем все номера карт во множество, чтобы не повторяться
+    possible_number_of_numbers = stop - start + 1  # Сколько всего может быть номеров в диапазоне
+    number_of_used_card_numbers = 0  # Считаем сколько номеров использовали
 
-        set_of_card_numbers = set()  # Собираем все номера карт во множество, чтобы не повторяться
-        possible_number_of_numbers = stop - start + 1  # Сколько всего может быть номеров в диапазоне
-        number_of_used_card_numbers = 0  # Считаем сколько номеров использовали
-
-        while True:
-
+    while True:
+        # Проверяем, что значения в допустимом диапазоне
+        if 0 < start <= 9999999999999999 and 0 < stop <= 9999999999999999 and start <= stop:
             # Проверяем, что остались номера в диапазоне
             if number_of_used_card_numbers < possible_number_of_numbers:
 
@@ -67,5 +65,5 @@ def card_number_generator(start: int = 1, stop: int = 9999999999999999) -> Gener
 
             else:
                 yield "Номера в указанном диапазоне закончились"
-    else:
-        yield "Недопустимый диапазон значений"
+        else:
+            yield "Недопустимый диапазон значений"

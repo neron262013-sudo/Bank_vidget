@@ -104,17 +104,31 @@ def test_card_number_generator():
     assert next(generator) == "Номера в указанном диапазоне закончились"
     assert next(generator) == "Номера в указанном диапазоне закончились"
 
+@pytest.mark.parametrize("start, stop, expected_1, expected_2, expected_3", [
+    (1, 1,
+     "0000 0000 0000 0001",
+     "Номера в указанном диапазоне закончились",
+     "Номера в указанном диапазоне закончились"),
+    (-1, 2,
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений"),
+    (1, -2,
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений"),
+    (2, 1,
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений",
+     "Недопустимый диапазон значений")])
+def test_card_number_generator_exceptional_cases(start, stop, expected_1, expected_2, expected_3):
+    gen = card_number_generator(start, stop)
 
-def test_card_number_generator_invalid_start():
-    generator = card_number_generator(-1, 10)
-    assert next(generator) == "Недопустимый диапазон значений"
+    result = next(gen)
+    assert result == expected_1
 
+    result = next(gen)
+    assert result == expected_2
 
-def test_card_number_generator_invalid_stop():
-    generator = card_number_generator(1, -10)
-    assert next(generator) == "Недопустимый диапазон значений"
-
-
-def test_card_number_generator_start_less_stop():
-    generator = card_number_generator(10, 1)
-    assert next(generator) == "Недопустимый диапазон значений"
+    result = next(gen)
+    assert result == expected_3
