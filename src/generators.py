@@ -39,25 +39,33 @@ def transaction_descriptions(transactions_list: list[dict]) -> Generator[Any | N
 def card_number_generator(start: int = 1, stop: int = 9999999999999999) -> Generator[str, None, None]:
     """Генератор номеров карт в формате xxxx xxxx xxxx xxxx"""
 
-    set_of_card_numbers = set()  # Собираем все номера карт во множество, чтобы не повторяться
-    possible_number_of_numbers = stop - start + 1  # Сколько всего может быть номеров в диапазоне
-    number_of_used_card_numbers = 0  # Считаем сколько номеров использовали
+    # Проверяем, что значения в допустимом диапазоне
+    if 0 < start <= 9999999999999999 and 0 < stop <= 9999999999999999 and start <= stop:
 
-    while True:
-        # Генерируем номер. Если длинна меньше 16, то дозаполним нулями в начало
-        new_card_number = str(random.randint(start, stop)).zfill(16)
+        set_of_card_numbers = set()  # Собираем все номера карт во множество, чтобы не повторяться
+        possible_number_of_numbers = stop - start + 1  # Сколько всего может быть номеров в диапазоне
+        number_of_used_card_numbers = 0  # Считаем сколько номеров использовали
 
-        # Проверка, что номер не повторяется
-        if new_card_number not in set_of_card_numbers:
-            set_of_card_numbers.add(new_card_number)
-            number_of_used_card_numbers += 1
-            formated_card_number = (
-                f"{new_card_number[0:4]} {new_card_number[4:8]} {new_card_number[8:12]} {new_card_number[12:]}"
-            )
-            yield formated_card_number
+        while True:
 
-        else:
+            # Проверяем, что остались номера в диапазоне
             if number_of_used_card_numbers < possible_number_of_numbers:
-                continue
+
+                # Генерируем номер. Если длинна меньше 16, то дозаполним нулями в начало
+                new_card_number = str(random.randint(start, stop)).zfill(16)
+
+                # Проверка, что номер не повторяется
+                if new_card_number not in set_of_card_numbers:
+                    set_of_card_numbers.add(new_card_number)
+                    number_of_used_card_numbers += 1
+                    formated_card_number = (
+                        f"{new_card_number[0:4]} {new_card_number[4:8]} {new_card_number[8:12]} {new_card_number[12:]}"
+                    )
+                    yield formated_card_number
+                else:
+                    continue
+
             else:
                 yield "Номера в указанном диапазоне закончились"
+    else:
+        yield "Недопустимый диапазон значений"
