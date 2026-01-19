@@ -2,8 +2,9 @@ import random
 from typing import Any, Dict, Generator, Union
 
 
-def filter_by_currency(transactions_list: list[dict], currency: str)\
-        -> Generator[Union[Dict[Any, Any], str], None, None]:
+def filter_by_currency(
+    transactions_list: list[dict], currency: str
+) -> Generator[Union[Dict[Any, Any], str], None, None]:
     """Принимает список транзакций.
     Возвращает генератор, который выдает транзакции, где валюта операции соответствует заданной."""
 
@@ -35,12 +36,12 @@ def transaction_descriptions(transactions_list: list[dict]) -> Generator[Any | N
         yield "Список транзакций пуст"
 
 
-# Собираем все номера карт во множество, чтобы не повторяться
-set_of_card_numbers = set()
-
-
 def card_number_generator(start: int = 1, stop: int = 9999999999999999) -> Generator[str, None, None]:
     """Генератор номеров карт в формате xxxx xxxx xxxx xxxx"""
+
+    set_of_card_numbers = set()  # Собираем все номера карт во множество, чтобы не повторяться
+    possible_number_of_numbers = stop - start + 1  # Сколько всего может быть номеров в диапазоне
+    number_of_used_card_numbers = 0  # Считаем сколько номеров использовали
 
     while True:
         # Генерируем номер. Если длинна меньше 16, то дозаполним нулями в начало
@@ -49,9 +50,14 @@ def card_number_generator(start: int = 1, stop: int = 9999999999999999) -> Gener
         # Проверка, что номер не повторяется
         if new_card_number not in set_of_card_numbers:
             set_of_card_numbers.add(new_card_number)
+            number_of_used_card_numbers += 1
             formated_card_number = (
                 f"{new_card_number[0:4]} {new_card_number[4:8]} {new_card_number[8:12]} {new_card_number[12:]}"
             )
             yield formated_card_number
+
         else:
-            yield "Номера в указанном диапазоне закончились"
+            if number_of_used_card_numbers < possible_number_of_numbers:
+                continue
+            else:
+                yield "Номера в указанном диапазоне закончились"
