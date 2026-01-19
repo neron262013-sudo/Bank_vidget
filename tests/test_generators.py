@@ -104,18 +104,17 @@ def test_card_number_generator():
     assert next(generator) == "Номера в указанном диапазоне закончились"
     assert next(generator) == "Номера в указанном диапазоне закончились"
 
+
 def test_card_number_generator_invalid_start():
     generator = card_number_generator(-1, 10)
     assert next(generator) == "Недопустимый диапазон значений"
+
 
 def test_card_number_generator_invalid_stop():
     generator = card_number_generator(1, -10)
     assert next(generator) == "Недопустимый диапазон значений"
 
+
 def test_card_number_generator_start_less_stop():
     generator = card_number_generator(10, 1)
     assert next(generator) == "Недопустимый диапазон значений"
-
-
-
-
