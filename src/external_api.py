@@ -21,6 +21,7 @@ def transaction_amount(transaction: dict) -> float:
     except ReadTimeout:
         return 0.00
 
+    print(response.json())
     # Проверка на ответ
     if response.status_code != 200:
         return 0.00
