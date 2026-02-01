@@ -15,9 +15,9 @@ def get_transactions_data(path: str) -> list:
         with open(f"{BASE_DIR}/{path}", encoding="utf-8") as data:
             transactions_data = json.load(data)
 
-            # Проверяем, что объект - список
-            if not isinstance(transactions_data, list):
-                return []
+        # Проверяем, что объект - список
+        if not isinstance(transactions_data, list):
+            return []
 
     # Если файла нет по пути или есть ошибки в файле, то выводим пустой список.
     except (FileNotFoundError, JSONDecodeError):
