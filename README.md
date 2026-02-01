@@ -177,6 +177,33 @@ def my_function(x, y):
 my_function(1, 2)
 ```
 
+10. Форматирует данные о финансовых транзакциях из json файла в python список данных. (utils.py)
+- В аргументе путь к файлу с json файлом.
+```
+print(get_transactions_data("data/operations.json"))
+```
+
+11. Возвращает сумму транзакции в рублях из словаря с данными о транзакции. (external_api.py)
+- В аргументе словарь с данными о транзакции
+- Нужно переименовать файл .env.example в .env и подставить токен с https://apilayer.com/exchangerates_data-api
+```
+print(transaction_amount({
+"id": 441945886,
+"state": "EXECUTED",
+"date": "2019-08-26T10:50:58.294041",
+"operationAmount": {
+  "amount": "31957.58",
+  "currency": {
+    "name": "руб.",
+    "code": "RUB"
+  }
+},
+"description": "Перевод организации",
+"from": "Maestro 1596837868705199",
+"to": "Счет 64686473678894779589"
+}))
+```
+
 ## Данные для ручных тестов
 - Список словарей для filter_by_currency и transaction_descriptions
 ```

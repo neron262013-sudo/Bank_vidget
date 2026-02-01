@@ -1,12 +1,15 @@
+from unittest.mock import Mock, patch
+
 import pytest
 from requests import ReadTimeout
 
 from src.external_api import transaction_amount
-from unittest.mock import Mock, patch
+
 
 @pytest.fixture
 def test_response():
     return {"rates": {"USD": 1.1, "EUR": 1, "RUB": 100}}
+
 
 @pytest.fixture
 def test_transaction_rub():
@@ -29,11 +32,11 @@ def test_transaction_rub():
 
 @pytest.mark.parametrize("transaction, expected",
                          [({"operationAmount": {"amount": "31957.58", "currency": {"code": "RUB"}}},
-                            31957.58),
+                           31957.58),
                           ({"operationAmount": {"amount": "100", "currency": {"code": "EUR"}}},
-                            10000.00),
+                           10000.00),
                           ({"operationAmount": {"amount": "50", "currency": {"code": "USD"}}},
-                            4545.45),
+                           4545.45),
                           ({"operationAmount": {"amount": "50", "currency": {"code": "AVG"}}},
                            0.00)
                           ])
@@ -46,6 +49,7 @@ def test_transaction_amount(mock_get, test_response, transaction, expected):
     result = transaction_amount(transaction)
     assert result == expected
 
+
 @patch("requests.get")
 def test_transaction_amount_not_200(mock_get, test_response, test_transaction_rub):
     mock_response = Mock()
@@ -54,6 +58,7 @@ def test_transaction_amount_not_200(mock_get, test_response, test_transaction_ru
     mock_get.return_value = mock_response
     result = transaction_amount(test_transaction_rub)
     assert result == 0.00
+
 
 @patch("requests.get")
 def test_transaction_amount_read_timeout(mock_get, test_transaction_rub):

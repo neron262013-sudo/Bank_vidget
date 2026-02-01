@@ -2,12 +2,11 @@ import json
 from json import JSONDecodeError
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def get_transactions_data(path: str) -> list:
-    """ Список данных о финансовых транзакциях """
+    """ Форматируем данные об операциях из json в python список данных о финансовых транзакциях """
 
     # Обрабатываем исключения.
     try:
@@ -24,7 +23,3 @@ def get_transactions_data(path: str) -> list:
         return []
 
     return transactions_data
-
-
-
-print(get_transactions_data("data/operations.json"))

@@ -1,7 +1,7 @@
-import requests
-from dotenv import load_dotenv
 import os
 
+import requests
+from dotenv import load_dotenv
 from requests import ReadTimeout
 
 
@@ -16,6 +16,7 @@ def transaction_amount(transaction: dict) -> float:
     headers = {"apikey": exchangerates_token}
     url = "https://api.apilayer.com/exchangerates_data/latest"
 
+    # Проверяем, что ответ пришел вовремя
     try:
         response = requests.get(url, headers=headers, timeout=10)
     except ReadTimeout:
@@ -32,6 +33,7 @@ def transaction_amount(transaction: dict) -> float:
     eur_rub_exchange_rate = float(exchange_rates["rates"]["RUB"])
     usd_rub_exchange_rate = float(eur_rub_exchange_rate / eur_usd_exchange_rate)
 
+    # Вытаскиваем коды валют и суммы транзакций
     operation_code = transaction.get("operationAmount", {}).get("currency", {}).get("code")
     operation_amount = float(transaction.get("operationAmount", {}).get("amount"))
 
@@ -45,22 +47,3 @@ def transaction_amount(transaction: dict) -> float:
     else:
         return 0.00
     return amount
-
-
-
-
-print(transaction_amount({
-"id": 441945886,
-"state": "EXECUTED",
-"date": "2019-08-26T10:50:58.294041",
-"operationAmount": {
-  "amount": "31957.58",
-  "currency": {
-    "name": "руб.",
-    "code": "RUB"
-  }
-},
-"description": "Перевод организации",
-"from": "Maestro 1596837868705199",
-"to": "Счет 64686473678894779589"
-}))
