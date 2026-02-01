@@ -26,5 +26,5 @@ def get_transactions_data(path: str) -> list:
     return transactions_data
 
 
-if __name__ == "__main__":
-    print(get_transactions_data("data/operations.json"))
+
+print(get_transactions_data("data/operations.json"))
