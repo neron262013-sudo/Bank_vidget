@@ -25,6 +25,7 @@ pip install -r requirements.txt
 - cleo==2.1.0
 - click==8.3.1
 - colorama==0.4.6
+- coverage==7.13.1
 - crashtest==0.4.1
 - distlib==0.4.0
 - dulwich==0.24.10
@@ -63,6 +64,8 @@ pip install -r requirements.txt
 - Pygments==2.19.2
 - pyproject_hooks==1.2.0
 - pytest==9.0.2
+- pytest-cov==7.0.0
+- python-dotenv==1.2.1
 - pytokens==0.3.0
 - pywin32-ctypes==0.2.3
 - RapidFuzz==3.14.3
@@ -298,3 +301,7 @@ poetry add --dev pytest pytest-cov
 pytest
 pytest -cov
 ```
+
+## Логирование
+
+Логирование через logging. Логи записываются в файлы в папке logs. Если папки нет - нужно создать в базовой директории.
