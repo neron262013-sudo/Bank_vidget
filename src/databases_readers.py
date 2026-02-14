@@ -4,17 +4,37 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-def get_from_csv(path: pd.DataFrame) -> list[dict]:
+def get_from_csv(path: str) -> list[dict]:
     """ Считывает данные из csv файлов """
 
-    data = pd.read_csv(BASE_DIR / path)
+    # Проверяем, что путь указан верно
+    if "data" not in path or "csv" not in path:
+        raise ValueError(f"Путь должен быть 'data/file_name.csv', а передан {path}")
+
+    full_path = BASE_DIR / path
+
+    # Проверяем, что файл существует в указанной директории
+    if not full_path.exists():
+        raise ValueError(f"Файл не существует по пути {full_path}")
+
+    # Читаем из csv и формируем словарь с данными
+    data = pd.read_csv(full_path)
     return data.to_dict(orient="records")
 
 
-def get_form_xlsx(path: pd.DataFrame) -> list[dict]:
+def get_form_xlsx(path: str) -> list[dict]:
     """ Считывает данные из xlsx файлов """
 
-    data = pd.read_excel(BASE_DIR / path)
-    return data.to_dict(orient="records")
+    # Проверяем, что путь указан верно
+    if "data" not in path or "xlsx" not in path:
+        raise ValueError(f"Путь должен быть 'data/file_name.xlsx', а передан {path}")
 
-print(get_form_xlsx("data/transactions_excel.xlsx"))
+    full_path = BASE_DIR / path
+
+    # Проверяем, что файл существует в указанной директории
+    if not full_path.exists():
+        raise ValueError(f"Файл не существует по пути {full_path}")
+
+    # Читаем из xlsx и формируем словарь с данными
+    data = pd.read_excel(full_path)
+    return data.to_dict(orient="records")
