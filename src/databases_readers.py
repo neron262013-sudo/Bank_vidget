@@ -1,11 +1,12 @@
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def get_from_csv(path: str) -> list[dict]:
-    """ Считывает данные из csv файлов """
+    """ Считывает данные из csv файлов и возвращаем список словарей с данными """
 
     # Проверяем, что путь указан верно
     if "data" not in path or "csv" not in path:
@@ -23,7 +24,7 @@ def get_from_csv(path: str) -> list[dict]:
 
 
 def get_form_xlsx(path: str) -> list[dict]:
-    """ Считывает данные из xlsx файлов """
+    """ Считывает данные из xlsx файлов и возвращаем список словарей с данными """
 
     # Проверяем, что путь указан верно
     if "data" not in path or "xlsx" not in path:

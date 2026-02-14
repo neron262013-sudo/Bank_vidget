@@ -34,6 +34,7 @@ pip install -r requirements.txt
 - openpyxl==3.1.5
 - packaging==25.0
 - pandas==3.0.0
+- pandas-stubs==3.0.0.260204
 - pathspec==0.12.1
 - platformdirs==4.5.1
 - pluggy==1.6.0
@@ -47,6 +48,7 @@ pip install -r requirements.txt
 - pytokens==0.3.0
 - requests==2.32.5
 - six==1.17.0
+- types-requests==2.32.4.20260107
 - typing_extensions==4.15.0
 - tzdata==2025.3
 - urllib3==2.6.3

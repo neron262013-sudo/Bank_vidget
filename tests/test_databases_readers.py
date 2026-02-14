@@ -1,17 +1,19 @@
+from pathlib import Path
+from unittest.mock import patch
+
 import pandas as pd
 import pytest
-from pathlib import Path
+
+from src.databases_readers import get_form_xlsx, get_from_csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-from unittest.mock import patch
-from src.databases_readers import get_from_csv, get_form_xlsx
 
 
 @pytest.fixture
 def test_data_base():
     sample_dict = {"id": 650703, "state": "EXECUTED"}
     return pd.DataFrame([sample_dict])
+
 
 # Тесты для csv
 @patch("src.databases_readers.pd.read_csv")
@@ -21,6 +23,7 @@ def test_get_from_csv(mock_exists, mock_read_csv, test_data_base):
     mock_read_csv.return_value = test_data_base
     result = get_from_csv("data/path.csv")
     assert result == [{"id": 650703, "state": "EXECUTED"}]
+
 
 @pytest.mark.parametrize("wrong_path, expected",
                          [
@@ -50,6 +53,7 @@ def test_get_from_xlsx(mock_exists, mock_read_csv, test_data_base):
     mock_read_csv.return_value = test_data_base
     result = get_form_xlsx("data/path.xlsx")
     assert result == [{"id": 650703, "state": "EXECUTED"}]
+
 
 @pytest.mark.parametrize("wrong_path, expected",
                          [
