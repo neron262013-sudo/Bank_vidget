@@ -1,4 +1,5 @@
 import re
+from typing import List, Dict
 from collections import defaultdict
 
 
@@ -31,8 +32,13 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
     """Принимает список словарей с данными о банковских операциях и строку поиска.
     Возвращает список словарей, у которых в описании есть данная строка."""
 
+    if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
+        raise TypeError("Параметр данных должен быть list[dict]")
 
-    pattern = re.compile(str(search), re.IGNORECASE)
+    if not isinstance(search, str):
+        raise TypeError("Параметр поиска должен быть типом str")
+
+    pattern = re.compile(search, re.IGNORECASE)
     result_list = list()
     for operation in data:
         for value in operation.values():
@@ -45,6 +51,12 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     """Принимает список словарей с данными о банковских операциях и список категорий операций.
     Возвращает словарь, в котором ключи — это названия категорий,
     а значения — это количество операций в каждой категории."""
+
+    if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
+        raise TypeError("Параметр данных должен быть list[dict]")
+
+    if not isinstance(categories, list) or not all(isinstance(item, str) for item in categories):
+        raise TypeError("Параметр категорий должен быть списком c str данными")
 
     operations_counter = defaultdict(int)
     for operation in data:
@@ -63,34 +75,34 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
 #                     {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
 #                     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}], "EXECUTED"))
 
-# print(process_bank_operations([
-#     {
-#         "id": 441945886,
-#         "state": "EXECUTED",
-#         "date": "2019-08-26T10:50:58.294041",
-#         "operationAmount": {
-#             "amount": "31957.58",
-#             "currency": {
-#                 "name": "руб.",
-#                 "code": "RUB"
-#             }
-#         },
-#         "description": "Перевод организации",
-#         "from": "Maestro 1596837868705199",
-#         "to": "Счет 64686473678894779589"
-#     },
-#     {
-#         "id": 142264268,
-#         "state": "EXECUTED",
-#         "date": "2019-04-04T23:20:05.206878",
-#         "operationAmount": {
-#             "amount": "79114.93",
-#             "currency": {
-#                 "name": "USD",
-#                 "code": "USD"
-#             }
-#         },
-#         "description": "Перевод со счета на счет",
-#         "from": "Счет 19708645243227258542",
-#         "to": "Счет 75651667383060284188"
-#     }], ["перевод организации", "перевод со счета на счет"]))
+print(process_bank_operations([
+    {
+        "id": 441945886,
+        "state": "EXECUTED",
+        "date": "2019-08-26T10:50:58.294041",
+        "operationAmount": {
+            "amount": "31957.58",
+            "currency": {
+                "name": "руб.",
+                "code": "RUB"
+            }
+        },
+        "description": "Перевод организации",
+        "from": "Maestro 1596837868705199",
+        "to": "Счет 64686473678894779589"
+    },
+    {
+        "id": 142264268,
+        "state": "EXECUTED",
+        "date": "2019-04-04T23:20:05.206878",
+        "operationAmount": {
+            "amount": "79114.93",
+            "currency": {
+                "name": "USD",
+                "code": "USD"
+            }
+        },
+        "description": "Перевод со счета на счет",
+        "from": "Счет 19708645243227258542",
+        "to": "Счет 75651667383060284188"
+    }], ["перевод организации", "перевод со счета на счет"]))
