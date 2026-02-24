@@ -1,5 +1,4 @@
 import re
-from typing import List, Dict
 from collections import defaultdict
 
 
@@ -28,13 +27,14 @@ def sort_by_date(list_of_data_dicts: list[dict], sort_order: bool = True) -> lis
     return sorted(list_of_data_dicts, key=lambda x: x["date"], reverse=sort_order)
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
-    """Принимает список словарей с данными о банковских операциях и строку поиска.
-    Возвращает список словарей, у которых в описании есть данная строка."""
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """Поиск строки в списке словарей с операциями"""
 
+    # Проверяем, что в data ввели список словарей
     if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
         raise TypeError("Параметр данных должен быть list[dict]")
 
+    # Проверяем, что в search ввели строку
     if not isinstance(search, str):
         raise TypeError("Параметр поиска должен быть типом str")
 
@@ -47,14 +47,14 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
     return result_list
 
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
-    """Принимает список словарей с данными о банковских операциях и список категорий операций.
-    Возвращает словарь, в котором ключи — это названия категорий,
-    а значения — это количество операций в каждой категории."""
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """Подсчитывает количество операций по типу из данных по операциям"""
 
+    # Проверяем, что в data ввели список словарей
     if not isinstance(data, list) or not all(isinstance(item, dict) for item in data):
         raise TypeError("Параметр данных должен быть list[dict]")
 
+    # Проверяем, что в categories ввели список со строками
     if not isinstance(categories, list) or not all(isinstance(item, str) for item in categories):
         raise TypeError("Параметр категорий должен быть списком c str данными")
 
@@ -66,43 +66,3 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
             if pattern.search(description):
                 operations_counter[category] += 1
     return dict(operations_counter)
-
-
-
-
-# print(process_bank_search([{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-#                     {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-#                     {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-#                     {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}], "EXECUTED"))
-
-print(process_bank_operations([
-    {
-        "id": 441945886,
-        "state": "EXECUTED",
-        "date": "2019-08-26T10:50:58.294041",
-        "operationAmount": {
-            "amount": "31957.58",
-            "currency": {
-                "name": "руб.",
-                "code": "RUB"
-            }
-        },
-        "description": "Перевод организации",
-        "from": "Maestro 1596837868705199",
-        "to": "Счет 64686473678894779589"
-    },
-    {
-        "id": 142264268,
-        "state": "EXECUTED",
-        "date": "2019-04-04T23:20:05.206878",
-        "operationAmount": {
-            "amount": "79114.93",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
-        },
-        "description": "Перевод со счета на счет",
-        "from": "Счет 19708645243227258542",
-        "to": "Счет 75651667383060284188"
-    }], ["перевод организации", "перевод со счета на счет"]))

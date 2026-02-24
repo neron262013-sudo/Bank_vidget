@@ -1,8 +1,6 @@
-from re import search
-
 import pytest
 
-from src.processing import filter_by_state, sort_by_date, process_bank_search, process_bank_operations
+from src.processing import filter_by_state, process_bank_operations, process_bank_search, sort_by_date
 
 
 @pytest.fixture()
@@ -41,6 +39,7 @@ def transactions_data_description():
             {"description": "Перевод организации"},
             {"description": "Перевод со счета на счет"},
             {"description": "Перевод с карты на карту"}]
+
 
 @pytest.fixture()
 def categories_data():
@@ -126,4 +125,3 @@ def test_process_bank_operations_wrong_data(data, categories_data):
     with pytest.raises(TypeError) as exception:
         process_bank_operations(data, categories_data)
     assert str(exception.value) == "Параметр данных должен быть list[dict]"
-
