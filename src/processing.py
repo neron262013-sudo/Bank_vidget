@@ -1,5 +1,5 @@
 import re
-from collections import defaultdict
+from collections import Counter
 
 
 def filter_by_state(list_of_data_dicts: list[dict], state: str = "EXECUTED") -> list[dict]:
@@ -58,7 +58,7 @@ def process_bank_operations(data: list[dict], categories: list) -> dict:
     if not isinstance(categories, list) or not all(isinstance(item, str) for item in categories):
         raise TypeError("Параметр категорий должен быть списком c str данными")
 
-    operations_counter = defaultdict(int)
+    operations_counter = Counter()
     for operation in data:
         description = operation.get("description", "")
         for category in categories:
