@@ -21,9 +21,9 @@ def get_mask_card_number(card_number: int) -> str:
         raise ValueError("Не правильный формат номера карты")
 
     # Проверка, что значение int
-    if not isinstance(card_number, int):
-        logger.error(f"Не правильный формат номера карты {card_number}")
-        raise ValueError("Не правильный формат номера карты")
+    # if not isinstance(card_number, int):
+    #     logger.error(f"Не правильный формат номера карты {card_number}")
+    #     raise ValueError("Не правильный формат номера карты")
 
     logger.info("Маскировка номера карты и завершение работы функции get_mask_card_number")
     # Маскировка номера карты
@@ -40,10 +40,11 @@ def get_mask_account(account_number: int) -> str:
         raise ValueError("Не правильный формат номера счета")
 
     # Проверка, что формат int
-    if not isinstance(account_number, int):
-        logger.error(f"Не правильный формат номера счета: {account_number}")
-        raise ValueError("Не правильный формат номера счета")
+    # if not isinstance(account_number, int):
+    #     logger.error(f"Не правильный формат номера счета: {account_number}")
+    #     raise ValueError("Не правильный формат номера счета")
 
     # Маскирует номер счета
     logger.info("Маскировка номера карты и завершение работы функции get_mask_account")
     return f"**{str(account_number)[-4:]}"
+

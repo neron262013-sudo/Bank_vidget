@@ -6,7 +6,7 @@ def filter_by_state(list_of_data_dicts: list[dict], state: str = "EXECUTED") -> 
     """Фильтрует список словарей с данными по параметру state"""
 
     # Проверка, что в состояние счета введены определенные параметры
-    if state not in ("EXECUTED", "CANCELED"):
+    if state not in ("EXECUTED", "CANCELED", "PENDING"):
         raise ValueError("Не верное значение состояния счета")
 
     # Проходим по словарям в списке. Проверяем, есть ли ключ "state" через .get.

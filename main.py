@@ -137,9 +137,9 @@ def main():
 
 
     if not final_list_of_transactions:
-        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+        print("\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации\n")
     else:
-        print(f"Всего банковских операций в выборке: {len(final_list_of_transactions)}")
+        print(f"\nВсего банковских операций в выборке: {len(final_list_of_transactions)}\n")
         for transaction in final_list_of_transactions:
             final_transaction = list()
             final_transaction.append(f"{get_date(transaction['date'])} {transaction['description']}")
@@ -151,17 +151,13 @@ def main():
                 transaction_to = transaction.get("to")
                 final_transaction.append(f"{mask_account_card(str(transaction_from))} -> "
                                          f"{mask_account_card(str(transaction_to))}")
-            final_transaction.append(f"Сумма: {transaction['operationAmount']['amount']}")
+            if file_selection == "1":
+                final_transaction.append(f"Сумма: {transaction['operationAmount']['amount']}")
+            else:
+                final_transaction.append(f"Сумма: {transaction['amount']}")
             print("\n".join(final_transaction))
             print()
 
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     main()
+

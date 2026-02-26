@@ -19,7 +19,7 @@ def get_from_csv(path: str) -> list[dict]:
         raise ValueError(f"Файл не существует по пути {full_path}")
 
     # Читаем из csv и формируем словарь с данными
-    data = pd.read_csv(full_path)
+    data = pd.read_csv(full_path, sep=";")
     return data.to_dict(orient="records")
 
 
