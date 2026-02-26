@@ -1,6 +1,6 @@
 import re
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(type_and_number: str) -> str:
@@ -43,3 +43,6 @@ def get_date(raw_date: str) -> str:
     # Форматируем дату просто через срезы.
     formatted_date = raw_date[8:10], raw_date[5:7], raw_date[:4]
     return ".".join(formatted_date)
+
+print(mask_account_card("Visa Platinum 7000792289606361"))
+print(mask_account_card("Счет 73654108430135874305"))
