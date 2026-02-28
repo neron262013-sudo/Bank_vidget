@@ -47,4 +47,3 @@ def get_mask_account(account_number: int) -> str:
     # Маскирует номер счета
     logger.info("Маскировка номера карты и завершение работы функции get_mask_account")
     return f"**{str(account_number)[-4:]}"
-
