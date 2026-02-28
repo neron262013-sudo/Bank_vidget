@@ -16,10 +16,10 @@ def mask_account_card(type_and_number: str) -> str:
         if symbol.isdigit():
             card_or_account_number += symbol
 
-    # Удаляет все цифры и оставляет буквы
+    # Удаляет все цифры и оставляет буквы и пробелы
     type_of_card_or_account = ""
     for symbol in type_and_number:
-        if symbol.isalpha():
+        if symbol.isalpha() or symbol == " ":
             type_of_card_or_account += symbol
 
     # Проверяет длинну введенных номеров
@@ -29,10 +29,10 @@ def mask_account_card(type_and_number: str) -> str:
     # Номер карты = 16 символов. Если больше, то это номер аккаунта. Маскируем соответственно из файла masks.
     if len(card_or_account_number) > 16:
         card_number = get_mask_account(card_or_account_number)
-        return str(f"{type_of_card_or_account} {card_number}")
+        return str(f"{type_of_card_or_account}{card_number}")
     else:
         account_number = get_mask_card_number(card_or_account_number)
-        return str(f"{type_of_card_or_account} {account_number}")
+        return str(f"{type_of_card_or_account}{account_number}")
 
 
 def get_date(raw_date: str) -> str:
