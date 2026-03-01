@@ -4,10 +4,10 @@ from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize("type_and_number, expected",
-                         [("Visa Platinum 7000792289606361", "7000 79** **** 6361"),
-                          ("Счет 73654108430135874305", "**4305"),
-                          ("Maestro 7000792289606361", "7000 79** **** 6361"),
-                          ("Счет нерезидента 12345123455678956789", "**6789")])
+                         [("Visa Platinum 7000792289606361", "Visa Platinum 7000 79** **** 6361"),
+                          ("Счет 73654108430135874305", "Счет **4305"),
+                          ("Maestro 7000792289606361", "Maestro 7000 79** **** 6361"),
+                          ("Счет нерезидента 12345123455678956789", "Счет нерезидента **6789")])
 def test_mask_account_card(type_and_number, expected):
     assert mask_account_card(type_and_number) == expected
 
